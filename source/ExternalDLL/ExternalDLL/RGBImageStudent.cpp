@@ -14,22 +14,23 @@ RGBImageStudent::RGBImageStudent(const RGBImageStudent &other) : RGBImage(other.
 
 
 RGBImageStudent::RGBImageStudent(const int width, const int height) : RGBImage(width, height) {
-	int throwError = 0, e = 1 / throwError;
+	//int throwError = 0, e = 1 / throwError;
 	//TODO: Initialize pixel storage
 }
 
 RGBImageStudent::~RGBImageStudent() {
-	int throwError = 0, e = 1 / throwError;
+	RGBPixelStorage.clear();
+	//int throwError = 0, e = 1 / throwError;
 	//TODO: delete allocated objects
 }
 
 void RGBImageStudent::set(const int width_, const int height_) {
 	RGBImage::set(width_, height_);
-	PixelStorage = {};
+	RGBPixelStorage = {};
 	for (int x = 0; x < (width_ * height_); x++) {
-		PixelStorage.push_back(NULL);
+		RGBPixelStorage.push_back(NULL);
 	}
-	std::cout << PixelStorage.size() << std::endl;
+	std::cout << RGBPixelStorage.size() << std::endl;
 	std::cout << "set" << std::endl;
 
 	//TODO: resize or create a new pixel storage (Don't forget to delete the old storage)
@@ -42,7 +43,7 @@ void RGBImageStudent::set(const RGBImageStudent &other) {
 }
 
 void RGBImageStudent::setPixel(int x, int y, RGB pixel) {
-	PixelStorage[(x * Image::getWidth()) + y] = pixel;
+	RGBPixelStorage[(x * Image::getWidth()) + y] = pixel;
 	//TODO: no comment needed :)
 }
 
@@ -75,7 +76,7 @@ void RGBImageStudent::setPixel(int i, RGB pixel) {
 RGB RGBImageStudent::getPixel(int x, int y) const {
 	
 	//TODO: no comment needed :)
-	return PixelStorage[(x* Image::getWidth()) + y];
+	return RGBPixelStorage[(x* Image::getWidth()) + y];
 }
 
 RGB RGBImageStudent::getPixel(int i) const {

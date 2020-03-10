@@ -6,14 +6,19 @@
 
 #pragma once
 #include "IntensityImage.h"
+#include <vector>
+#include <iostream>
 class IntensityImageStudent : public IntensityImage {
+private:
+	std::vector<Intensity> IntensityPixelStorage = {};
+
 public:
 	IntensityImageStudent();
 	IntensityImageStudent(const IntensityImageStudent &other);
 	IntensityImageStudent(const int width, const int height);
 	~IntensityImageStudent();
 
-	void set(const int width, const int height);
+	void set(const int width_, const int height_);
 	void set(const IntensityImageStudent &other);
 
 	void setPixel(int x, int y, Intensity pixel);

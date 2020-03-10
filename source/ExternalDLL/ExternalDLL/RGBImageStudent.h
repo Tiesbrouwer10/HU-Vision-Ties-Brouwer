@@ -10,7 +10,7 @@
 #include <iostream>
 class RGBImageStudent : public RGBImage {
 private:
-	std::vector<RGB> PixelStorage = {};
+	std::vector<RGB> RGBPixelStorage = {};
 public:
 
 	RGBImageStudent();
