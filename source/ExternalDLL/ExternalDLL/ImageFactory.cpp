@@ -70,6 +70,7 @@ IntensityImage * ImageFactory::newIntensityImage(const IntensityImage &other) {
 	for (int i = 0; i < size; i++) {
 		image->setPixel(i, other.getPixel(i));
 	}
+	std::cout << "image made" << std::endl;
 	return image;
 }
 

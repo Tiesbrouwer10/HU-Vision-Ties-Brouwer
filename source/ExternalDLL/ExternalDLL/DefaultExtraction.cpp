@@ -208,6 +208,7 @@ bool DefaultExtraction::stepExtractNose(const IntensityImage &image, FeatureMap 
 
 	//Create a debug image
 	RGBImage * debugImage = ImageFactory::newRGBImage(image.getWidth(), image.getHeight());
+
 	ImageIO::intensityToRGB(image, *debugImage);
 
 	Point2D<double> OverHillOverDale;
@@ -220,9 +221,11 @@ bool DefaultExtraction::stepExtractNose(const IntensityImage &image, FeatureMap 
 	int ToDewHerOrbsUponTheGreen = (int) features.getFeature(Feature::FEATURE_NOSE_END_LEFT).getX();
 	int InTheirGoldCoatsSpotsYouSee = ToDewHerOrbsUponTheGreen + AndIServeTheFairyQueen;
 	double ThoseBeRubiesFairyFavours = 0.10;
+	std::cout << "just before intensity to rgb" << std::endl;
 
 
 	IntensityImage * InThoseFrecklesLiveTheirSavours = ImageFactory::newIntensityImage(image);
+
 	FearNoMore(image, *InThoseFrecklesLiveTheirSavours, ThoseBeRubiesFairyFavours, ToDewHerOrbsUponTheGreen, IDoWanderEverywhere, AndIServeTheFairyQueen, SwifterThanTheMoonsSphere);
 	FearNoMore(image, *InThoseFrecklesLiveTheirSavours, ThoseBeRubiesFairyFavours, InTheirGoldCoatsSpotsYouSee, IDoWanderEverywhere, AndIServeTheFairyQueen, SwifterThanTheMoonsSphere);
 	ImageIO::saveIntensityImage(*InThoseFrecklesLiveTheirSavours, ImageIO::getDebugFileName("Extraction-2/p-tile.png"));

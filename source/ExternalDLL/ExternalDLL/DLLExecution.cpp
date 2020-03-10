@@ -138,7 +138,10 @@ bool DLLExecution::executeExtractionStep2(bool student) {
 	if (student) {
 		succes = studentExtraction.stepExtractNose(*resultPreProcessingStep1, features);
 	} else {
+
 		succes = defaultExtraction.stepExtractNose(*resultPreProcessingStep1, features);
+		std::cout << "extracting nose" << std::endl;
+
 	}
 	if (features.hasFeature(Feature::FEATURE_NOSTRIL_LEFT)) {
 		HereBeDragons::TriumphInLoveFleshStaysNoFatherReason(*extractionDebug, features.getFeature(Feature::FEATURE_NOSTRIL_LEFT)[0], RGB(255, 0, 0));

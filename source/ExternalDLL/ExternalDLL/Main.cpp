@@ -20,8 +20,8 @@ int main(int argc, char * argv[]) {
 	ImageFactory::setImplementation(ImageFactory::STUDENT);
 
 	std::cout << "`1/4 there" << std::endl;
-//	ImageIO::debugFolder = "C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\source\\ExternalDLL\\OutputFolder";
- 	ImageIO::debugFolder = "C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\source\\ExternalDLL\\debug";
+	ImageIO::debugFolder = "C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\source\\ExternalDLL\\OutputFolder";
+// 	ImageIO::debugFolder = "C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\source\\ExternalDLL\\debug";
 	ImageIO::isInDebugMode = true; //If set to false the ImageIO class will skip any image save function calls
 
 
@@ -30,9 +30,9 @@ int main(int argc, char * argv[]) {
 
 	RGBImage * input = ImageFactory::newRGBImage();
 
-	std::cout << "little bit firther than halfway there" << std::endl;
-//	if (!ImageIO::loadImage("C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\child-1.png", *input)) {
-	if (!ImageIO::loadImage("C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\child-1.png", *input)) {
+	std::cout << "little bit forther than halfway there" << std::endl;
+	if (!ImageIO::loadImage("C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\child-1.png", *input)) {
+//	if (!ImageIO::loadImage("C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\child-1.png", *input)) {
 		std::cout << "Image could not be loaded!" << std::endl;
 		system("pause");
 		return 0;
@@ -80,6 +80,8 @@ bool executeSteps(DLLExecution * executor) {
 		std::cout << "Pre-processing step 2 failed!" << std::endl;
 		return false;
 	}
+	std::cout << "After PreProcessing step 2" << std::endl;
+
 	ImageIO::saveIntensityImage(*executor->resultPreProcessingStep2, ImageIO::getDebugFileName("Pre-processing-2.png"));
 
 	if (!executor->executePreProcessingStep3(false)) {
@@ -144,12 +146,12 @@ bool executeSteps(DLLExecution * executor) {
 		std::cout << "Extraction step 2 failed!" << std::endl;
 		return false;
 	}
+	std::cout << "made it to all extraction steps" << std::endl;
 
 	if (!executor->executeExtractionStep3(false)) {
 		std::cout << "Extraction step 3 failed!" << std::endl;
 		return false;
 	}
-
 
 	//Post processing and representation
 	if (!executor->executePostProcessing()) {
@@ -163,6 +165,7 @@ bool executeSteps(DLLExecution * executor) {
 		std::cout << "Representation failed!" << std::endl;
 		return false;
 	}
+	std::cout << "made it to the end" << std::endl;
 	return true;
 }
 
