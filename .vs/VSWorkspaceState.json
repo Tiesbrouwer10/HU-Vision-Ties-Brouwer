@@ -2,10 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\source",
-    "\\source\\ExternalDLL",
     "\\source\\ExternalDLL\\ExternalDLL",
     "\\source\\FaceRecognitionGUI"
   ],
-  "SelectedNode": "\\source\\ExternalDLL\\ExternalDLL\\StudentLocalization.cpp",
+  "SelectedNode": "\\source\\FaceRecognitionGUI\\FaceRecognitionGUI2015.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -6,7 +6,11 @@
 
 #pragma once
 #include "RGBImage.h"
+#include <vector>
+#include <iostream>
 class RGBImageStudent : public RGBImage {
+private:
+	std::vector<RGB> PixelStorage = {};
 public:
 
 	RGBImageStudent();
@@ -14,7 +18,7 @@ public:
 	RGBImageStudent(const int width, const int height);
 	~RGBImageStudent();
 
-	void set(const int width, const int height);
+	void set(const int width_, const int height_);
 	void set(const RGBImageStudent &other);
 
 	void setPixel(int x, int y, RGB pixel);

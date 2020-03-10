@@ -58,7 +58,7 @@ bool ImageIO::loadImage(const std::string file, RGBImage &dst) {
 	if (!raw.data) {
 		return false;
 	}
-
+	std::cout << "middle of load image function" << std::endl;
 	Mat normal;
 	raw.convertTo(normal, CV_8UC3);
 	HereBeDragons::HeIsContentedThyPoorDrudgeToBe(normal, dst);

@@ -2,6 +2,9 @@
 
 
 IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &image) const {
+	IntensityImageStudent IntensityImage;
+	
+	
 	return nullptr;
 }
 

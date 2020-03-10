@@ -14,29 +14,34 @@ void drawFeatureDebugImage(IntensityImage &image, FeatureMap &features);
 bool executeSteps(DLLExecution * executor);
 
 int main(int argc, char * argv[]) {
+	std::cout << "code was run" << std::endl;
 
-	ImageFactory::setImplementation(ImageFactory::DEFAULT);
-	//ImageFactory::setImplementation(ImageFactory::STUDENT);
+	//ImageFactory::setImplementation(ImageFactory::DEFAULT);
+	ImageFactory::setImplementation(ImageFactory::STUDENT);
 
-
-	ImageIO::debugFolder = "D:\\Users\\Rolf\\Downloads\\FaceMinMin";
+	std::cout << "`1/4 there" << std::endl;
+	ImageIO::debugFolder = "C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\source\\ExternalDLL\\OutputFolder";
 	ImageIO::isInDebugMode = true; //If set to false the ImageIO class will skip any image save function calls
 
 
 
+	std::cout << "halfway there" << std::endl;
 
 	RGBImage * input = ImageFactory::newRGBImage();
-	if (!ImageIO::loadImage("D:\\Users\\Rolf\\Downloads\\TestA5.jpg", *input)) {
+
+	std::cout << "little bit firther than halfway there" << std::endl;
+	if (!ImageIO::loadImage("C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\child-1.png", *input)) {
 		std::cout << "Image could not be loaded!" << std::endl;
 		system("pause");
 		return 0;
 	}
+	std::cout << "3/4th there" << std::endl;
 
 
 	ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("debug.png"));
 
 	DLLExecution * executor = new DLLExecution(input);
-
+	std::cout << "almost done" << std::endl;
 
 	if (executeSteps(executor)) {
 		std::cout << "Face recognition successful!" << std::endl;
@@ -61,6 +66,7 @@ int main(int argc, char * argv[]) {
 
 
 bool executeSteps(DLLExecution * executor) {
+	std::cout << "entered executeStepts function" << std::endl;
 
 	//Execute the four Pre-processing steps
 	if (!executor->executePreProcessingStep1(false)) {

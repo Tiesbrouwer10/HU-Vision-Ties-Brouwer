@@ -1,8 +1,10 @@
 #include "RGBImageStudent.h"
 
 RGBImageStudent::RGBImageStudent() : RGBImage() {
-	int throwError = 0, e = 1 / throwError; //Throws error without the need to include a header
+	//int throwError = 0, e = 1 / throwError; //Throws error without the need to include a header
 	//TODO: Nothing
+	std::cout << "RGBStudent made" << std::endl;
+
 }
 
 RGBImageStudent::RGBImageStudent(const RGBImageStudent &other) : RGBImage(other.getWidth(), other.getHeight()) {
@@ -21,9 +23,15 @@ RGBImageStudent::~RGBImageStudent() {
 	//TODO: delete allocated objects
 }
 
-void RGBImageStudent::set(const int width, const int height) {
-	RGBImage::set(width, height);
-	int throwError = 0, e = 1 / throwError;
+void RGBImageStudent::set(const int width_, const int height_) {
+	RGBImage::set(width_, height_);
+	PixelStorage = {};
+	for (int x = 0; x < (width_ * height_); x++) {
+		PixelStorage.push_back(NULL);
+	}
+	std::cout << PixelStorage.size() << std::endl;
+	std::cout << "set" << std::endl;
+
 	//TODO: resize or create a new pixel storage (Don't forget to delete the old storage)
 }
 
@@ -34,11 +42,12 @@ void RGBImageStudent::set(const RGBImageStudent &other) {
 }
 
 void RGBImageStudent::setPixel(int x, int y, RGB pixel) {
-	int throwError = 0, e = 1 / throwError;
+	PixelStorage[(x * Image::getWidth()) + y] = pixel;
 	//TODO: no comment needed :)
 }
 
 void RGBImageStudent::setPixel(int i, RGB pixel) {
+	std::cout << "for some reason komt hij in de tweede setPixel functie" << std::endl;
 	int throwError = 0, e = 1 / throwError;
 	/*
 	* TODO: set pixel i in "Row-Major Order"
@@ -64,9 +73,9 @@ void RGBImageStudent::setPixel(int i, RGB pixel) {
 }
 
 RGB RGBImageStudent::getPixel(int x, int y) const {
-	int throwError = 0, e = 1 / throwError;
+	
 	//TODO: no comment needed :)
-	return 0;
+	return PixelStorage[(x* Image::getWidth()) + y];
 }
 
 RGB RGBImageStudent::getPixel(int i) const {
