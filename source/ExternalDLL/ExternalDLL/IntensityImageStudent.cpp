@@ -27,6 +27,7 @@ IntensityImageStudent::~IntensityImageStudent() {
 
 void IntensityImageStudent::set(const int width_, const int height_) {
 	IntensityImage::set(width_, height_);
+	
 	IntensityPixelStorage = {};
 	for (int x = 0; x < (width_ * height_); x++) {
 		IntensityPixelStorage.push_back(NULL);

@@ -2,7 +2,6 @@
 
 RGBImageStudent::RGBImageStudent() : RGBImage() {
 	RGBPixelStorage.clear();
-	std::cout << "RGBStudent made" << std::endl;
 }
 
 RGBImageStudent::RGBImageStudent(const RGBImageStudent &other) : RGBImage(other.getWidth(), other.getHeight()) {
