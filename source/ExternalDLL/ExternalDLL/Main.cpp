@@ -7,6 +7,7 @@
 #include <iostream> //std::cout
 #include <sstream>
 #include <fstream>
+#include <string>
 #include "ImageIO.h" //Image load and save functionality
 #include "HereBeDragons.h"
 #include "ImageFactory.h"
@@ -16,58 +17,29 @@
 void drawFeatureDebugImage(IntensityImage &image, FeatureMap &features);
 bool executeSteps(DLLExecution * executor);
 
-int main(int argc, char * argv[]) {
+int test(int argc, char* argv[]) {
 
 	//ImageFactory::setImplementation(ImageFactory::DEFAULT);
 	ImageFactory::setImplementation(ImageFactory::STUDENT);
 
 //	ImageIO::debugFolder = "C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\source\\ExternalDLL\\OutputFolder";
- 	ImageIO::debugFolder = "C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\source\\ExternalDLL\\debug";
+
+	std::string picturelocation = "C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\testsets\\Set D Resolution\\Child- resolution\\";
+	std::ofstream debugoutput(picturelocation + "Intensity.csv");
+
+	ImageIO::debugFolder = picturelocation;
 	ImageIO::isInDebugMode = true; //If set to false the ImageIO class will skip any image save function calls
 
-	std::string picturelocation = "C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\testsets\\Set B Saturation\\Adult - saturation\\";
-	std::ofstream debugoutput(picturelocation + "first test.csv");
-
-
-	//RGBImage* input = ImageFactory::newRGBImage();
-
-	//std::cout << "little bit forther than halfway there" << std::endl;
-	////	if (!ImageIO::loadImage("C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\child-1.png", *input)) {
-	//std::string filename = "C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\";
-	//int test = 1;
-	//filename += "child-";
-	//filename += std::to_string(test);
-	//filename += ".png";
-	//std::cout << filename;
-	//if (!ImageIO::loadImage(filename, *input)) {
-	//	std::cout << "Image could not be loaded!" << std::endl;
-	//	system("pause");
-	//	return 0;
-	//}
-	//std::cout << "3/4th there" << std::endl;
-
-
-	//ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("debug.png"));
-
-	//DLLExecution* executor = new DLLExecution(input);
-	//std::cout << "almost done" << std::endl;
-
-	//if (executeSteps(executor)) {
-	//	std::cout << "Face recognition successful!" << std::endl;
-	//	std::cout << "Facial parameters: " << std::endl;
-	//	for (int i = 0; i < 16; i++) {
-	//		std::cout << (i + 1) << ": " << executor->facialParameters[i] << std::endl;
-	//	}
-	//}
-
-	//delete executor;
+	
 	std::string picturename = "";
 
-	for (int pictureN = 1; pictureN < 101; pictureN++) {
-		RGBImage* input = &RGBImageStudent();
+	RGBImage* input = ImageFactory::newRGBImage();
+
+	//for (int pictureN = 10; pictureN < 101; pictureN++) {
+	int pictureN = 50;
 
 		std::cout << "little bit forther than halfway there" << std::endl;
-		std::string picturename = "Adult (" + std::to_string(pictureN) + ").png";
+		picturename = "Child (" + std::to_string(pictureN) + ").png";
 		//	if (!ImageIO::loadImage("C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\child-1.png", *input)) {
 		if (!ImageIO::loadImage(picturelocation + picturename, *input)) {
 			std::cout << "Image could not be loaded!" << std::endl;
@@ -79,32 +51,35 @@ int main(int argc, char * argv[]) {
 
 		DLLExecution* executor = new DLLExecution(input);
 		
-		debugoutput << picturename;
-
-		for (int j = 0; j < 10; j++) {
+		int hitrate = 0;
+		//for (int j = 0; j < 10; j++) {
 			if (executeSteps(executor)) {
 				std::cout << "Face recognition successful!" << std::endl;
 				std::cout << "Facial parameters: " << std::endl;
 				for (int i = 0; i < 16; i++) {
 					std::cout << (i + 1) << ": " << executor->facialParameters[i] << std::endl;
 				}
-				debugoutput << ", 1" << std::endl;
+				hitrate++;
 			}
-			else {
-				debugoutput << " , 0" << std::endl;
-			}
-		}
-	
+		//}
+		debugoutput << picturename << ", " << hitrate << std::endl;
+
 		delete executor;
-		delete input;
-	}
+	//}
 
 	system("pause");
 	return 1;
 }
 
 
-
+int main(int argc, char* argv[]) {
+	try {
+		test(argc, argv);
+	}
+	catch (cv::Exception & e) {
+		std::cerr << e.msg << std::endl;
+	}
+}
 
 
 
@@ -279,3 +254,38 @@ void drawFeatureDebugImage(IntensityImage &image, FeatureMap &features) {
 	ImageIO::saveRGBImage(*debug, ImageIO::getDebugFileName("feature-points-debug.png"));
 	delete debug;
 }
+
+
+
+//RGBImage* input = ImageFactory::newRGBImage();
+
+	//std::cout << "little bit forther than halfway there" << std::endl;
+	////	if (!ImageIO::loadImage("C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\child-1.png", *input)) {
+	//std::string filename = "C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\";
+	//int test = 1;
+	//filename += "child-";
+	//filename += std::to_string(test);
+	//filename += ".png";
+	//std::cout << filename;
+	//if (!ImageIO::loadImage(filename, *input)) {
+	//	std::cout << "Image could not be loaded!" << std::endl;
+	//	system("pause");
+	//	return 0;
+	//}
+	//std::cout << "3/4th there" << std::endl;
+
+
+	//ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("debug.png"));
+
+	//DLLExecution* executor = new DLLExecution(input);
+	//std::cout << "almost done" << std::endl;
+
+	//if (executeSteps(executor)) {
+	//	std::cout << "Face recognition successful!" << std::endl;
+	//	std::cout << "Facial parameters: " << std::endl;
+	//	for (int i = 0; i < 16; i++) {
+	//		std::cout << (i + 1) << ": " << executor->facialParameters[i] << std::endl;
+	//	}
+	//}
+
+	//delete executor;

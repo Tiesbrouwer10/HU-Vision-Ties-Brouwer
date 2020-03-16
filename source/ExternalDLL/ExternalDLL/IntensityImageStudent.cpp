@@ -28,7 +28,7 @@ IntensityImageStudent::~IntensityImageStudent() {
 void IntensityImageStudent::set(const int width_, const int height_) {
 	IntensityImage::set(width_, height_);
 	
-	IntensityPixelStorage = {};
+	IntensityPixelStorage.clear();
 	for (int x = 0; x < (width_ * height_); x++) {
 		IntensityPixelStorage.push_back(NULL);
 	}
@@ -37,7 +37,7 @@ void IntensityImageStudent::set(const int width_, const int height_) {
 }
 
 void IntensityImageStudent::set(const IntensityImageStudent &other) {
-	IntensityImage::set(other.getWidth(), other.getHeight());
+	//IntensityImage::set(other.getWidth(), other.getHeight());
 	set(other.getWidth(), other.getHeight());
 	//TODO: resize or create a new pixel storage and copy the object (Don't forget to delete the old storage)
 }
