@@ -15,7 +15,7 @@
 #include "RGBImageStudent.h"
 
 void drawFeatureDebugImage(IntensityImage &image, FeatureMap &features);
-bool executeSteps(DLLExecution * executor);
+bool executeSteps(DLLExecution * executor, int & pictureHitrate);
 
 int test(int argc, char* argv[]) {
 
@@ -24,24 +24,32 @@ int test(int argc, char* argv[]) {
 
 //	ImageIO::debugFolder = "C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\source\\ExternalDLL\\OutputFolder";
 
-	std::string picturelocation = "C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\testsets\\Set D Resolution\\Child- resolution\\";
+	//std::string picturelocation = "C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\testsets\\Set D Resolution\\Child- resolution\\";
+	std::string picturelocation = "C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set C Lightness\\Man - Lightness\\";
 	std::ofstream debugoutput(picturelocation + "Intensity.csv");
 
 	ImageIO::debugFolder = picturelocation;
 	ImageIO::isInDebugMode = true; //If set to false the ImageIO class will skip any image save function calls
 
 	
-	std::string picturename = "";
+	std::string pictureName = "";
 
 	RGBImage* input = ImageFactory::newRGBImage();
 
-	//for (int pictureN = 10; pictureN < 101; pictureN++) {
-	int pictureN = 50;
 
-		std::cout << "little bit forther than halfway there" << std::endl;
-		picturename = "Child (" + std::to_string(pictureN) + ").png";
-		//	if (!ImageIO::loadImage("C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\child-1.png", *input)) {
-		if (!ImageIO::loadImage(picturelocation + picturename, *input)) {
+	debugoutput << "LIGHTNESS METINGEN" << std::endl <<
+		"Algoritme 1" << std::endl
+		<< "," << "Localization Steps" << "," << "," << "," << "," << "," << "Extraction Steps" << "," << "," << "," << "," << "Postprocessing" << "," << "Representation" << "," << "Hit ratio" << std::endl <<
+		"Picture" << "," << "Prep" << "," << "1" << "," << "2" << "," << "3" << "," << " 4" << "," << "5" << "," << "Prep" << "," << "1" << "," << "2" << "," << "3" << "," << " 1" << "," << "1" << std::endl;
+
+
+
+	for (int testPicture = 42; testPicture < 43; testPicture++) {
+
+		std::cout << "Currently working on picture: " + std::to_string(testPicture) << std::endl;
+		pictureName = "Man (" + std::to_string(testPicture) + ").png";
+
+		if (!ImageIO::loadImage(picturelocation + pictureName, *input)) {
 			std::cout << "Image could not be loaded!" << std::endl;
 			system("pause");
 			return 0;
@@ -50,22 +58,70 @@ int test(int argc, char* argv[]) {
 		ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("Debug.png"));
 
 		DLLExecution* executor = new DLLExecution(input);
-		
-		int hitrate = 0;
-		//for (int j = 0; j < 10; j++) {
-			if (executeSteps(executor)) {
-				std::cout << "Face recognition successful!" << std::endl;
-				std::cout << "Facial parameters: " << std::endl;
-				for (int i = 0; i < 16; i++) {
-					std::cout << (i + 1) << ": " << executor->facialParameters[i] << std::endl;
-				}
-				hitrate++;
+		int pictureHitrate = 0;
+
+		if (executeSteps(executor, pictureHitrate)) {
+			std::cout << "Face recognition successful!" << std::endl;
+			std::cout << "Facial parameters: " << std::endl;
+			for (int i = 0; i < 16; i++) {
+				std::cout << (i + 1) << ": " << executor->facialParameters[i] << std::endl;
 			}
-		//}
-		debugoutput << picturename << ", " << hitrate << std::endl;
+			
+		}
+		debugoutput << pictureName << ", ";
+		
+		for (int stepHits = 0; stepHits < pictureHitrate; stepHits++) {
+			debugoutput << "1" << ",";
+		}
+		for (int missedSteps = 12 - pictureHitrate; missedSteps >= 0; missedSteps--) {
+			debugoutput << "0" << ",";
+		}
+
+		debugoutput << "( " << pictureHitrate << " / 12 )" << std::endl;
+
 
 		delete executor;
-	//}
+		pictureHitrate = 0;
+	}
+
+
+
+
+
+
+
+
+		////for (int pictureN = 10; pictureN < 101; pictureN++) {
+		//int pictureN = 50;
+
+		//	std::cout << "little bit forther than halfway there" << std::endl;
+		//	picturename = "Child (" + std::to_string(pictureN) + ").png";
+		//	//	if (!ImageIO::loadImage("C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set A\\TestSet Images\\child-1.png", *input)) {
+		//	if (!ImageIO::loadImage(picturelocation + picturename, *input)) {
+		//		std::cout << "Image could not be loaded!" << std::endl;
+		//		system("pause");
+		//		return 0;
+		//	}
+
+		//	ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("Debug.png"));
+
+		//	DLLExecution* executor = new DLLExecution(input);
+		//
+		//	int hitrate = 0;
+		//	//for (int j = 0; j < 10; j++) {
+		//		if (executeSteps(executor)) {
+		//			std::cout << "Face recognition successful!" << std::endl;
+		//			std::cout << "Facial parameters: " << std::endl;
+		//			for (int i = 0; i < 16; i++) {
+		//				std::cout << (i + 1) << ": " << executor->facialParameters[i] << std::endl;
+		//			}
+		//			hitrate++;
+		//		}
+		//	//}
+		//	debugoutput << picturename << ", " << hitrate << std::endl;
+
+		//	delete executor;
+		////}
 
 	system("pause");
 	return 1;
@@ -85,7 +141,7 @@ int main(int argc, char* argv[]) {
 
 
 
-bool executeSteps(DLLExecution * executor) {
+bool executeSteps(DLLExecution * executor, int& pictureHitrate) {
 	std::cout << "entered executeStepts function" << std::endl;
 
 	//Execute the four Pre-processing steps
@@ -123,32 +179,33 @@ bool executeSteps(DLLExecution * executor) {
 		std::cout << "Localization preparation failed!" << std::endl;
 		return false;
 	}
+	pictureHitrate++;
 
 	if (!executor->executeLocalizationStep1(false)) {
 		std::cout << "Localization step 1 failed!" << std::endl;
 		return false;
 	}
-
+	pictureHitrate++;
 	if (!executor->executeLocalizationStep2(false)) {
 		std::cout << "Localization step 2 failed!" << std::endl;
 		return false;
 	}
-
+	pictureHitrate++;
 	if (!executor->executeLocalizationStep3(false)) {
 		std::cout << "Localization step 3 failed!" << std::endl;
 		return false;
 	}
-
+	pictureHitrate++;
 	if (!executor->executeLocalizationStep4(false)) {
 		std::cout << "Localization step 4 failed!" << std::endl;
 		return false;
 	}
-
+	pictureHitrate++;
 	if (!executor->executeLocalizationStep5(false)) {
 		std::cout << "Localization step 5 failed!" << std::endl;
 		return false;
 	}
-
+	pictureHitrate++;
 
 
 	//Execute the extraction steps
@@ -156,35 +213,36 @@ bool executeSteps(DLLExecution * executor) {
 		std::cout << "Extraction preparation failed!" << std::endl;
 		return false;
 	}
-
+	pictureHitrate++;
 	if (!executor->executeExtractionStep1(false)) {
 		std::cout << "Extraction step 1 failed!" << std::endl;
 		return false;
 	}
-
+	pictureHitrate++;
 	if (!executor->executeExtractionStep2(false)) {
 		std::cout << "Extraction step 2 failed!" << std::endl;
 		return false;
 	}
 	std::cout << "made it to all extraction steps" << std::endl;
-
+	pictureHitrate++;
 	if (!executor->executeExtractionStep3(false)) {
 		std::cout << "Extraction step 3 failed!" << std::endl;
 		return false;
 	}
-
+	pictureHitrate++;
 	//Post processing and representation
 	if (!executor->executePostProcessing()) {
 		std::cout << "Post-processing failed!" << std::endl;
 		return false;
 	}
-
+	pictureHitrate++;
 	drawFeatureDebugImage(*executor->resultPreProcessingStep1, executor->featuresScaled);
 
 	if (!executor->executeRepresentation()) {
 		std::cout << "Representation failed!" << std::endl;
 		return false;
 	}
+	pictureHitrate++;
 	std::cout << "made it to the end" << std::endl;
 	return true;
 }

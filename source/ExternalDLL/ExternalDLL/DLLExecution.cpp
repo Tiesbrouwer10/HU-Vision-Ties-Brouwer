@@ -230,6 +230,7 @@ bool DLLExecution::executeLocalizationStep2(bool student) {
 	}
 	int requiredFeatures[] = { Feature::FEATURE_HEAD_TOP, Feature::FEATURE_HEAD_LEFT_SIDE, Feature::FEATURE_HEAD_RIGHT_SIDE };
 	if (!featuresScaled.hasFeatures(requiredFeatures, 3)) {
+		std::cout << "no Features in featureScaled" << std::endl;
 		return false;
 	}
 	bool succes = false;
