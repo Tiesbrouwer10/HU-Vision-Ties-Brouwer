@@ -36,8 +36,8 @@ void RGBImageStudent::set(const int width_, const int height_) {
 }
 
 void RGBImageStudent::set(const RGBImageStudent &other) {
-	RGBImage::set(other.getWidth(), other.getHeight());
 	set(other.getWidth(), other.getHeight());
+
 	//TODO: resize or create a new pixel storage and copy the object (Don't forget to delete the old storage)
 }
 

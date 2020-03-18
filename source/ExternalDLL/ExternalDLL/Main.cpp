@@ -19,13 +19,10 @@ bool executeSteps(DLLExecution * executor, int & pictureHitrate);
 
 int test(int argc, char* argv[]) {
 
-	//ImageFactory::setImplementation(ImageFactory::DEFAULT);
 	ImageFactory::setImplementation(ImageFactory::STUDENT);
 
-//	ImageIO::debugFolder = "C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\source\\ExternalDLL\\OutputFolder";
-
 	//std::string picturelocation = "C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\testsets\\Set D Resolution\\Child- resolution\\";
-	std::string picturelocation = "C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set C Lightness\\Man - Lightness\\";
+	std::string picturelocation = "C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set C Lightness\\";
 	std::ofstream debugoutput(picturelocation + "Intensity.csv");
 
 	ImageIO::debugFolder = picturelocation;
@@ -37,51 +34,48 @@ int test(int argc, char* argv[]) {
 	RGBImage* input = ImageFactory::newRGBImage();
 
 
-	debugoutput << "LIGHTNESS METINGEN" << std::endl <<
-		"Algoritme 1" << std::endl
-		<< "," << "Localization Steps" << "," << "," << "," << "," << "," << "Extraction Steps" << "," << "," << "," << "," << "Postprocessing" << "," << "Representation" << "," << "Hit ratio" << std::endl <<
-		"Picture" << "," << "Prep" << "," << "1" << "," << "2" << "," << "3" << "," << " 4" << "," << "5" << "," << "Prep" << "," << "1" << "," << "2" << "," << "3" << "," << " 1" << "," << "1" << std::endl;
+	debugoutput << "LIGHTNESS METINGEN" << std::endl;
+	
+	for (int i = 1; i <= 20; i++) {
+		debugoutput << "picture" + std::to_string(i) << "," << "HitRatio( X / 12 )" << "," << ",";
+	}
+
+	debugoutput << std::endl;
 
 
 
-	for (int testPicture = 42; testPicture < 43; testPicture++) {
+	for (int testPicture = 1; testPicture < 99; testPicture++){
+		debugoutput << std::endl;
+		for (int testFolder = 1; testFolder < 4; testFolder++) {
 
-		std::cout << "Currently working on picture: " + std::to_string(testPicture) << std::endl;
-		pictureName = "Man (" + std::to_string(testPicture) + ").png";
+			pictureName = "faceFolder (" + std::to_string(testFolder) + ")\\face (" + std::to_string(testPicture) + ").png";
 
-		if (!ImageIO::loadImage(picturelocation + pictureName, *input)) {
-			std::cout << "Image could not be loaded!" << std::endl;
-			system("pause");
-			return 0;
-		}
-
-		ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("Debug.png"));
-
-		DLLExecution* executor = new DLLExecution(input);
-		int pictureHitrate = 0;
-
-		if (executeSteps(executor, pictureHitrate)) {
-			std::cout << "Face recognition successful!" << std::endl;
-			std::cout << "Facial parameters: " << std::endl;
-			for (int i = 0; i < 16; i++) {
-				std::cout << (i + 1) << ": " << executor->facialParameters[i] << std::endl;
+			if (!ImageIO::loadImage(picturelocation + pictureName, *input)) {
+				std::cout << "Image could not be loaded!" << std::endl;
+				system("pause");
+				return 0;
 			}
-			
-		}
-		debugoutput << pictureName << ", ";
-		
-		for (int stepHits = 0; stepHits < pictureHitrate; stepHits++) {
-			debugoutput << "1" << ",";
-		}
-		for (int missedSteps = 12 - pictureHitrate; missedSteps >= 0; missedSteps--) {
-			debugoutput << "0" << ",";
+
+			ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("Debug.png"));
+
+			DLLExecution* executor = new DLLExecution(input);
+			int pictureHitrate = 0;
+
+			if (executeSteps(executor, pictureHitrate)) {
+				//std::cout << "Face recognition successful!" << std::endl;
+				//std::cout << "Facial parameters: " << std::endl;
+				//for (int i = 0; i < 16; i++) {
+				//	std::cout << (i + 1) << ": " << executor->facialParameters[i] << std::endl;
+				//}
+
+			}
+			debugoutput << "face " + std::to_string(testPicture) << ", " << pictureHitrate << "," << ",";
+
+
+			delete executor;
+			pictureHitrate = 0;
 		}
 
-		debugoutput << "( " << pictureHitrate << " / 12 )" << std::endl;
-
-
-		delete executor;
-		pictureHitrate = 0;
 	}
 
 
