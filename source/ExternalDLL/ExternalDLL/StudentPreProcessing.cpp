@@ -1,21 +1,25 @@
 #include "StudentPreProcessing.h"
 #include "ImageFactory.h"
 #include <algorithm>
+#include <array>
 
 
 Intensity StudentPreProcessing::doGrayScaling(RGB pixel) const {
+	std::array<int, 3> x = { pixel.r, pixel.g, pixel.b };
 	switch (currentAlgorithm) {
 		case INTENSITY: {
-			return(pixel.r + pixel.g + pixel.b) / 3;
+			return(x[0] + x[1] + x[2] / 3);
 		}
 		case VALUE: {
-			return std::max(pixel.r, pixel.g, pixel.b);
+			int result = *std::max(x.begin(), x.end());
+			return Intensity(result);
+
 		}
 		case LUMINANCE: {
-			return((pixel.r * 0.3) + (pixel.g * 0.59) + (pixel.b * 0.11));
+			return((x[0] * 0.3) + (x[1] * 0.59) + (x[2] * 0.11));
 		}
 		case LIGHTNESS: {
-			int Y = 0.2126 * pixel.r + 0.7152 * pixel.g + 0.0722 * pixel.b;
+			int Y = 0.2126 * x[0] + 0.7152 * x[1] + 0.0722 * x[2];
 			if (Y > (6 / 29) ^ 3) {
 				Y = Y ^ (1 / 3);
 			}
@@ -24,8 +28,8 @@ Intensity StudentPreProcessing::doGrayScaling(RGB pixel) const {
 			}
 			return ((1 / 100) * (116 * Y - 16));
 		}
-		default:{
-			return (1 / 2) * (std::max(pixel.r, pixel.g, pixel.b) + std::min(pixel.r, pixel.g, pixel.b));
+		default: {
+			return (1 / 2) * (*std::max(x.begin(), x.end()) + *std::min(x.begin(), x.end()));
 		}
 	}
 
