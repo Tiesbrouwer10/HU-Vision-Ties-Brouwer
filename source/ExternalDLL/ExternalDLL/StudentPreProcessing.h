@@ -10,8 +10,8 @@
 
 class StudentPreProcessing : public PreProcessing {
 public:
-	enum Algorithms { INTENSITY, VALUE, LUMINANCE, LIGHTNESS, LUSTER };
-	Algorithms currentAlgorithm = Algorithms::INTENSITY;
+	enum class Algorithms { INTENSITY, VALUE, LUMINANCE, LIGHTNESS, LUSTER } : int {};
+	const static Algorithms currentAlgorithm = Algorithms::VALUE;
 	IntensityImage * stepToIntensityImage(const RGBImage &image) const;
 	IntensityImage * stepScaleImage(const IntensityImage &image) const;
 	IntensityImage * stepEdgeDetection(const IntensityImage &image) const;

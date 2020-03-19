@@ -7,18 +7,18 @@
 Intensity StudentPreProcessing::doGrayScaling(RGB pixel) const {
 	std::array<int, 3> x = { pixel.r, pixel.g, pixel.b };
 	switch (currentAlgorithm) {
-		case INTENSITY: {
+	case Algorithms::INTENSITY: {
 			return(x[0] + x[1] + x[2] / 3);
 		}
-		case VALUE: {
+		case Algorithms::VALUE: {
 			int result = *std::max(x.begin(), x.end());
 			return Intensity(result);
 
 		}
-		case LUMINANCE: {
+		case Algorithms::LUMINANCE: {
 			return((x[0] * 0.3) + (x[1] * 0.59) + (x[2] * 0.11));
 		}
-		case LIGHTNESS: {
+		case Algorithms::LIGHTNESS: {
 			int Y = 0.2126 * x[0] + 0.7152 * x[1] + 0.0722 * x[2];
 			if (Y > (6 / 29) ^ 3) {
 				Y = Y ^ (1 / 3);
