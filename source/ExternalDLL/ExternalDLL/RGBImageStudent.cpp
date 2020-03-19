@@ -15,6 +15,9 @@ RGBImageStudent::RGBImageStudent(const RGBImageStudent &other) : RGBImage(other.
 
 RGBImageStudent::RGBImageStudent(const int width, const int height) : RGBImage(width, height) {
 	RGBPixelStorage.clear();
+	for (int x = 0; x < (width * height); x++) {
+		RGBPixelStorage.push_back(NULL);
+	}
 	//TODO: Initialize pixel storage
 }
 
@@ -47,7 +50,6 @@ void RGBImageStudent::setPixel(int x, int y, RGB pixel) {
 }
 
 void RGBImageStudent::setPixel(int i, RGB pixel) {
-	std::cout << "for some reason komt hij in de tweede setPixel functie" << std::endl;
 	RGBPixelStorage[i] = pixel;
 
 	/*
