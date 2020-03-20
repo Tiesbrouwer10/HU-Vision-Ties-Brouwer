@@ -24,7 +24,7 @@ int test(int argc, char* argv[]) {
 	ImageFactory::setImplementation(ImageFactory::STUDENT);
 
 	//std::string picturelocation = "C:\\Users\\mickb\\source\\repos\\Tiesbrouwer10\\HU-Vision-Ties-Mick\\testsets\\Set D Resolution\\Child- resolution\\";
-	std::string picturelocation = "C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set C Lightness\\faceFolder\\";
+	std::string picturelocation = "C:\\Users\\ties1\\OneDrive\\Bureaublad\\STUDIE\\HBO-ICT jaar 2019-2020\\Vision\\Github repo\\HU-Vision-Ties-Mick\\testsets\\Set D Resolution\\faceFolder5\\";
 	std::ofstream debugoutput(picturelocation + "Intensity.csv");
 
 	ImageIO::debugFolder = picturelocation + "\\debugFolder";
@@ -36,11 +36,11 @@ int test(int argc, char* argv[]) {
 	RGBImage* input = ImageFactory::newRGBImage();
 
 
-	debugoutput << "LIGHTNESS METINGEN" << std::endl <<"picture" << "," << "HitRatio( X / 12 )" << std::endl;
+	debugoutput << "Resolution METINGEN" << std::endl <<"picture" << "," << "HitRatio( X / 12 )" << std::endl;
 
 
 
-	for (int testPicture = 1; testPicture < 99; testPicture++){
+	for (int testPicture = 90; testPicture <= 100; testPicture++){
 
 		pictureName = "face (" + std::to_string(testPicture) + ").png";
 
@@ -134,7 +134,7 @@ bool executeSteps(DLLExecution * executor, int& pictureHitrate) {
 	std::cout << "entered executeStepts function" << std::endl;
 
 	//Execute the four Pre-processing steps
-	if (!executor->executePreProcessingStep1(true)) {
+	if (!executor->executePreProcessingStep1(false)) {
 		std::cout << "Pre-processing step 1 failed!" << std::endl;
 		return false;
 	}
