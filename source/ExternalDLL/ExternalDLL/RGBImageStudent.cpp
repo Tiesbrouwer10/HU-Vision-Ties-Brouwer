@@ -9,7 +9,6 @@ RGBImageStudent::RGBImageStudent(const RGBImageStudent &other) : RGBImage(other.
 	for (int x = 0; x < (other.getWidth() * other.getHeight()); x++) {
 		RGBPixelStorage.push_back(other.getPixel(x));
 	}
-	//TODO: Create a copy from the other object
 }
 
 
@@ -18,13 +17,10 @@ RGBImageStudent::RGBImageStudent(const int width, const int height) : RGBImage(w
 	for (int x = 0; x < (width * height); x++) {
 		RGBPixelStorage.push_back(NULL);
 	}
-	//TODO: Initialize pixel storage
 }
 
 RGBImageStudent::~RGBImageStudent() {
 	RGBPixelStorage.clear();
-	//int throwError = 0, e = 1 / throwError;
-	//TODO: delete allocated objects
 }
 
 void RGBImageStudent::set(const int width_, const int height_) {
@@ -34,54 +30,28 @@ void RGBImageStudent::set(const int width_, const int height_) {
 	for (int x = 0; x < (width_ * height_); x++) {
 		RGBPixelStorage.push_back(NULL);
 	}
-
-	//TODO: resize or create a new pixel storage (Don't forget to delete the old storage)
 }
 
 void RGBImageStudent::set(const RGBImageStudent &other) {
 	set(other.getWidth(), other.getHeight());
-
-	//TODO: resize or create a new pixel storage and copy the object (Don't forget to delete the old storage)
+	for (int x = 0; x < (other.getWidth() * other.getHeight()); x++) {
+		RGBPixelStorage.push_back(other.getPixel(x));
+	}
 }
 
 void RGBImageStudent::setPixel(int x, int y, RGB pixel) {
 	RGBPixelStorage[(y * Image::getWidth()) + x] = pixel;
-	//TODO: no comment needed :)
 }
 
 void RGBImageStudent::setPixel(int i, RGB pixel) {
 	RGBPixelStorage[i] = pixel;
-
-	/*
-	* TODO: set pixel i in "Row-Major Order"
-	*
-	*
-	* Original 2d image (values):
-	* 9 1 2
-	* 4 3 5
-	* 8 7 8
-	*
-	* 1d representation (i, value):
-	* i		value
-	* 0		9
-	* 1		1
-	* 2		2
-	* 3		4
-	* 4		3
-	* 5		5
-	* 6		8
-	* 7		7
-	* 8		8
-	*/
 }
 
 RGB RGBImageStudent::getPixel(int x, int y) const {
-	
-	//TODO: no comment needed :)
+
 	return RGBPixelStorage[(y* Image::getWidth()) + x];
 }
 
 RGB RGBImageStudent::getPixel(int i) const {
 	return RGBPixelStorage[i];
-	//TODO: see setPixel(int i, RGB pixel)
 }
