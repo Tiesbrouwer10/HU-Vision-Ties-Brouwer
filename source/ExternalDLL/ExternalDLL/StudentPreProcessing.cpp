@@ -7,19 +7,18 @@
 
 
 Intensity StudentPreProcessing::doGrayScaling(RGB pixel) const {
-    std::array<float, 3> x = { pixel.r, pixel.g, pixel.b };
     switch (currentAlgorithm) {
     case Algorithms::INTENSITY: {
-        return Intensity(((pixel.r + pixel.g + pixel.b) / 3));
+        return Intensity((pixel.r + pixel.g + pixel.b) / 3);
     }
     case Algorithms::VALUE: {
         return Intensity(std::max({ pixel.r, pixel.g, pixel.b }));
     }
     case Algorithms::LUMINANCE: {
-        return Intensity(((pixel.r * 0.3) + (pixel.g * 0.59) + (pixel.b * 0.11)));
+        return Intensity((pixel.r * 0.3) + (pixel.g * 0.59) + (pixel.b * 0.11));
     }
     case Algorithms::LUMA: {
-        return Intensity(((pixel.r * 0.2126) + (pixel.g * 0.7152) + (pixel.b * 0.0722)));
+        return Intensity((pixel.r * 0.2126) + (pixel.g * 0.7152) + (pixel.b * 0.0722));
     }
     case Algorithms::LUSTER: {
         return Intensity(0.5 * (std::max({ pixel.r, pixel.g, pixel.b })) +

@@ -34,11 +34,11 @@ int test(int argc, char* argv[]) {
   std::string pictureName = "";
   RGBImage* input = ImageFactory::newRGBImage();
 
-  debugoutput << "Resolution METINGEN" << std::endl
-              << "picture"
-              << ","
-              << "HitRatio( X / 12 )"
-              << "\n";
+  debugoutput << "Resolution METINGEN" << "\n"
+      << "picture"
+      << ","
+      << "HitRatio( X / 12 )"
+      << std::endl;
 
   int pictureHitrate;
 
@@ -63,7 +63,7 @@ int test(int argc, char* argv[]) {
       }
     }
     debugoutput << "face " + std::to_string(testPicture) << ", "
-                << pictureHitrate << "\n";
+        << pictureHitrate << std::endl;
 
     delete executor;
   }

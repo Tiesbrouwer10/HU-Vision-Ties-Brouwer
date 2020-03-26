@@ -26,7 +26,7 @@ void IntensityImageStudent::set(const int width_, const int height_) {
 
 void IntensityImageStudent::set(const IntensityImageStudent &other) {
 	IntensityImage::set(other.getWidth(), other.getHeight());
-	set(other.getWidth(), other.getHeight());
+	IntensityPixelStorage.clear();
 	IntensityPixelStorage.resize(other.getWidth() * other.getHeight(), Intensity());
 }
 
