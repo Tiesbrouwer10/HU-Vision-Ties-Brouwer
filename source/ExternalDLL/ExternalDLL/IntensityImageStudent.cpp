@@ -6,17 +6,12 @@ IntensityImageStudent::IntensityImageStudent() : IntensityImage() {
 
 IntensityImageStudent::IntensityImageStudent(const IntensityImageStudent &other) : IntensityImage(other.getWidth(), other.getHeight()) {
 	IntensityPixelStorage.clear();
-	for (int x = 0; x < (other.getWidth() * other.getHeight()); x++) {
-		IntensityPixelStorage.push_back(other.getPixel(x));
-	}
+	IntensityPixelStorage.resize(other.getWidth() * other.getHeight(), Intensity());
 }
 
 IntensityImageStudent::IntensityImageStudent(const int width, const int height) : IntensityImage(width, height) {
 	IntensityPixelStorage.clear();
-	for (int x = 0; x < (width * height); x++) {
-		IntensityPixelStorage.push_back(NULL);
-	}
-
+	IntensityPixelStorage.resize(width * height,Intensity());
 }
 
 IntensityImageStudent::~IntensityImageStudent() {
@@ -25,18 +20,14 @@ IntensityImageStudent::~IntensityImageStudent() {
 
 void IntensityImageStudent::set(const int width_, const int height_) {
 	IntensityImage::set(width_, height_);
-	
 	IntensityPixelStorage.clear();
-	for (int x = 0; x < (width_ * height_); x++) {
-		IntensityPixelStorage.push_back(NULL);
-	}
+	IntensityPixelStorage.resize(width_ * height_, Intensity());
 }
 
 void IntensityImageStudent::set(const IntensityImageStudent &other) {
+	IntensityImage::set(other.getWidth(), other.getHeight());
 	set(other.getWidth(), other.getHeight());
-	for (int x = 0; x < (other.getWidth() * other.getHeight()); x++) {
-		IntensityPixelStorage.push_back(other.getPixel(x));
-	}
+	IntensityPixelStorage.resize(other.getWidth() * other.getHeight(), Intensity());
 }
 
 void IntensityImageStudent::setPixel(int x, int y, Intensity pixel) {

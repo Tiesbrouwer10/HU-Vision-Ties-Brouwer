@@ -16,5 +16,5 @@ public:
 	IntensityImage * stepEdgeDetection(const IntensityImage &image) const;
 	IntensityImage * stepThresholding(const IntensityImage &image) const;
 	Intensity doGrayScaling(RGB pixel) const;
-	Algorithms currentAlgorithm = Algorithms::LUSTER;
+	Algorithms currentAlgorithm = Algorithms::VALUE;
 };

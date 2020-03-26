@@ -6,13 +6,13 @@ RGBImageStudent::RGBImageStudent() : RGBImage() {
 
 RGBImageStudent::RGBImageStudent(const RGBImageStudent &other) : RGBImage(other.getWidth(), other.getHeight()) {
 	RGBPixelStorage.clear();
-	RGBPixelStorage.resize(other.getWidth() * other.getHeight());
+	RGBPixelStorage.resize(other.getWidth() * other.getHeight(), RGB());
 }
 
 
 RGBImageStudent::RGBImageStudent(const int width, const int height) : RGBImage(width, height) {
 	RGBPixelStorage.clear();
-	RGBPixelStorage.resize(width * height);
+	RGBPixelStorage.resize(width * height, RGB());
 }
 
 RGBImageStudent::~RGBImageStudent() {
@@ -22,13 +22,13 @@ RGBImageStudent::~RGBImageStudent() {
 void RGBImageStudent::set(const int width_, const int height_) {
 	RGBImage::set(width_, height_);
 	RGBPixelStorage.clear();
-	RGBPixelStorage.resize(width_ * height_);
+	RGBPixelStorage.resize(width_ * height_, RGB());
 }
 
 void RGBImageStudent::set(const RGBImageStudent &other) {
 	RGBImage::set(other.getWidth(), other.getHeight());
 	RGBPixelStorage.clear();
-	RGBPixelStorage.resize(other.getWidth() * other.getHeight());
+	RGBPixelStorage.resize(other.getWidth() * other.getHeight(), RGB());
 }
 
 void RGBImageStudent::setPixel(int x, int y, RGB pixel) {
